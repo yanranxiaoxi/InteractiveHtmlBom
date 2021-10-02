@@ -247,7 +247,7 @@ class GeneralSettingsPanelBase ( wx.Panel ):
 
         sbSizer9 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"其他 PCB 数据" ), wx.HORIZONTAL )
 
-        self.includeTracksCheckbox = wx.CheckBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"包含导线与铺铜", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.includeTracksCheckbox = wx.CheckBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"包含导线与覆铜", wx.DefaultPosition, wx.DefaultSize, 0 )
         sbSizer9.Add( self.includeTracksCheckbox, 1, wx.ALL, 5 )
 
         self.includeNetsCheckbox = wx.CheckBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"包含网络", wx.DefaultPosition, wx.DefaultSize, 0 )
