@@ -2,7 +2,7 @@
 
 ⭐ 简体中文版 Interactive HTML BOM，内置可嵌入式 Python 运行环境 ⭐
 
-🔗 [GitLab (Homepage)](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom) | 🔗 [GitHub](https://gitlab.soraharu.com/yanranxiaoxi/InteractiveHtmlBom)
+🔗 [GitLab (Homepage)](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom) | 🔗 [GitHub](https://github.com/yanranxiaoxi/InteractiveHtmlBom)
 
 ## 📦 使用
 
