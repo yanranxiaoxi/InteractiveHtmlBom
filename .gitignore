@@ -7,4 +7,8 @@ test
 releases
 demo
 *config.ini
-web/user*
+/web/user*
+/cache/*
+!/cache/README.md
+/external/html/*
+!/external/html/index.html
