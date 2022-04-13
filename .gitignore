@@ -1,2 +1,10 @@
-/__pycache__
 *.pyc
+.idea
+.vscode
+*.iml
+*.bak
+test
+releases
+demo
+*config.ini
+web/user*

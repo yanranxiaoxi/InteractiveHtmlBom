@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="cmn-Hans">
+<html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive BOM for KiCAD</title>
   <style type="text/css">
 ///CSS///
 ///USERCSS///
   </style>
-  <script type="text/javascript">
+  <script type="text/javascript" >
 ///////////////////////////////////////////////
 ///SPLITJS///
 ///////////////////////////////////////////////
@@ -100,7 +100,7 @@
           </label><!-- This comment eats space! All of it!
           --><label class="menu-label" style="width: calc(50% - 17px); border-left: 0;">
             <input id="dnpOutlineCheckbox" type="checkbox" checked onchange="dnpOutline(this.checked)">
-            DNP
+            DNP 概述
           </label>
           <label class="menu-label">
             <input id="highlightpin1Checkbox" type="checkbox" onchange="setHighlightPin1(this.checked)">
@@ -116,7 +116,7 @@
             <input id="boardRotation" type="range" min="-36" max="36" value="0" class="slider" oninput="setBoardRotation(this.value)">
           </label>
           <label class="menu-label">
-            <div style="margin-left: 5px">复选框</div>
+            <div style="margin-left: 5px">BOM 复选框</div>
             <input id="bomCheckboxes" class="menu-textbox" type=text
                    oninput="setBomCheckboxes(this.value)">
           </label>
@@ -126,9 +126,8 @@
           </label>
           <label class="menu-label">
             <span class="shameless-plug">
-              <span>由</span>
+              <span>Created using</span>
               <a id="github-link" target="blank" href="https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom">InteractiveHtmlBom</a>
-			  <span>创建</span>
             </span>
           </label>
         </div>
@@ -136,13 +135,13 @@
       <div class="button-container hideonprint"
            style="float: right; position: relative; top: 8px">
         <button id="fl-btn" class="left-most-button" onclick="changeCanvasLayout('F')"
-                title="正面">F
+                title="仅显示顶层">F
         </button>
         <button id="fb-btn" class="middle-button" onclick="changeCanvasLayout('FB')"
-                title="正面与背面">FB
+                title="顶层与底层">FB
         </button>
         <button id="bl-btn" class="right-most-button" onclick="changeCanvasLayout('B')"
-                title="背面">B
+                title="仅显示底层">B
         </button>
       </div>
       <div class="button-container hideonprint"
@@ -170,8 +169,8 @@
             <tbody>
               <tr>
                 <td width="40%">电路板统计</td>
-                <td>正面</td>
-                <td>背面</td>
+                <td>顶层</td>
+                <td>底层</td>
                 <td>总计</td>
               </tr>
               <tr>
@@ -212,7 +211,7 @@
         <button class="iobtn"></button>
         <div class="menu-content">
           <div class="menu-label menu-label-top">
-            <div style="margin-left: 5px;">导出电路板图像</div>
+            <div style="margin-left: 5px;">保存电路板图像</div>
             <div class="flexbox">
               <input id="render-save-width" class="menu-textbox" type="text" value="1000" placeholder="Width"
                   style="flex-grow: 1; width: 50px;" oninput="validateSaveImgDimension(this)">
@@ -225,8 +224,8 @@
               透明背景
             </label>
             <div class="flexbox">
-              <button class="savebtn" onclick="saveImage('F')">正面</button>
-              <button class="savebtn" onclick="saveImage('B')">背面</button>
+              <button class="savebtn" onclick="saveImage('F')">顶层</button>
+              <button class="savebtn" onclick="saveImage('B')">底层</button>
             </div>
           </div>
           <div class="menu-label">

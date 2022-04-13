@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Oct 26 2018)
+## Python code generated with wxFormBuilder (version 3.10.1-0-g8feb16b3)
 ## http://www.wxformbuilder.org/
 ##
 ## PLEASE DO *NOT* EDIT THIS FILE!
@@ -9,6 +9,7 @@
 
 import wx
 import wx.xrc
+import wx.grid
 
 ###########################################################################
 ## Class SettingsDialogBase
@@ -45,38 +46,38 @@ class SettingsDialogPanel ( wx.Panel ):
 
         bSizer39 = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.m_button41 = wx.Button( self, wx.ID_ANY, u"保存当前设置", wx.DefaultPosition, wx.DefaultSize, 0|wx.BORDER_DEFAULT )
-        bSizer39.Add( self.m_button41, 0, wx.ALL, 5 )
+        self.saveSettingsBtn = wx.Button( self, wx.ID_ANY, u"保存当前设置...", wx.DefaultPosition, wx.DefaultSize, 0|wx.BORDER_DEFAULT )
+        bSizer39.Add( self.saveSettingsBtn, 0, wx.ALL, 5 )
 
 
-        bSizer39.Add( ( 50, 0), 0, wx.EXPAND, 5 )
+        bSizer39.Add( ( 50, 0), 1, wx.EXPAND, 5 )
 
-        self.m_button42 = wx.Button( self, wx.ID_ANY, u"生成 BOM", wx.DefaultPosition, wx.DefaultSize, 0|wx.BORDER_DEFAULT )
+        self.generateBomBtn = wx.Button( self, wx.ID_ANY, u"生成 BOM", wx.DefaultPosition, wx.DefaultSize, 0|wx.BORDER_DEFAULT )
 
-        self.m_button42.SetDefault()
-        bSizer39.Add( self.m_button42, 0, wx.ALL, 5 )
+        self.generateBomBtn.SetDefault()
+        bSizer39.Add( self.generateBomBtn, 0, wx.ALL, 5 )
 
-        self.m_button43 = wx.Button( self, wx.ID_CANCEL, u"取消", wx.DefaultPosition, wx.DefaultSize, 0|wx.BORDER_DEFAULT )
-        bSizer39.Add( self.m_button43, 0, wx.ALL, 5 )
+        self.cancelBtn = wx.Button( self, wx.ID_CANCEL, u"取消", wx.DefaultPosition, wx.DefaultSize, 0|wx.BORDER_DEFAULT )
+        bSizer39.Add( self.cancelBtn, 0, wx.ALL, 5 )
 
 
-        bSizer20.Add( bSizer39, 0, wx.ALIGN_CENTER, 5 )
+        bSizer20.Add( bSizer39, 0, wx.EXPAND, 5 )
 
 
         self.SetSizer( bSizer20 )
         self.Layout()
 
         # Connect Events
-        self.m_button41.Bind( wx.EVT_BUTTON, self.OnSaveSettings )
-        self.m_button42.Bind( wx.EVT_BUTTON, self.OnGenerateBom )
-        self.m_button43.Bind( wx.EVT_BUTTON, self.OnExit )
+        self.saveSettingsBtn.Bind( wx.EVT_BUTTON, self.OnSave )
+        self.generateBomBtn.Bind( wx.EVT_BUTTON, self.OnGenerateBom )
+        self.cancelBtn.Bind( wx.EVT_BUTTON, self.OnExit )
 
     def __del__( self ):
         pass
 
 
-    # Virtual event handlers, overide them in your derived class
-    def OnSaveSettings( self, event ):
+    # Virtual event handlers, override them in your derived class
+    def OnSave( self, event ):
         event.Skip()
 
     def OnGenerateBom( self, event ):
@@ -160,7 +161,7 @@ class HtmlSettingsPanelBase ( wx.Panel ):
         self.bomDefaultView.SetSelection( 1 )
         b_sizer.Add( self.bomDefaultView, 0, wx.ALL|wx.EXPAND, 5 )
 
-        layerDefaultViewChoices = [ u"正面", u"正面与背面", u"背面" ]
+        layerDefaultViewChoices = [ u"仅显示顶层", u"顶层与底层", u"仅显示底层" ]
         self.layerDefaultView = wx.RadioBox( self, wx.ID_ANY, u"层视图", wx.DefaultPosition, wx.DefaultSize, layerDefaultViewChoices, 1, wx.RA_SPECIFY_COLS )
         self.layerDefaultView.SetSelection( 1 )
         b_sizer.Add( self.layerDefaultView, 0, wx.ALL|wx.EXPAND, 5 )
@@ -190,7 +191,7 @@ class HtmlSettingsPanelBase ( wx.Panel ):
         pass
 
 
-    # Virtual event handlers, overide them in your derived class
+    # Virtual event handlers, override them in your derived class
     def OnBoardRotationSlider( self, event ):
         event.Skip()
 
@@ -245,7 +246,7 @@ class GeneralSettingsPanelBase ( wx.Panel ):
 
         bSizer32.Add( sbSizer6, 0, wx.ALL|wx.EXPAND, 5 )
 
-        sbSizer9 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"其他 PCB 数据" ), wx.HORIZONTAL )
+        sbSizer9 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"附加 PCB 数据" ), wx.HORIZONTAL )
 
         self.includeTracksCheckbox = wx.CheckBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"包含导线与覆铜", wx.DefaultPosition, wx.DefaultSize, 0 )
         sbSizer9.Add( self.includeTracksCheckbox, 1, wx.ALL, 5 )
@@ -256,7 +257,7 @@ class GeneralSettingsPanelBase ( wx.Panel ):
 
         bSizer32.Add( sbSizer9, 0, wx.ALL|wx.EXPAND, 5 )
 
-        sortingSizer = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"元件排序顺序" ), wx.VERTICAL )
+        sortingSizer = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"元件排序规则" ), wx.VERTICAL )
 
         bSizer4 = wx.BoxSizer( wx.HORIZONTAL )
 
@@ -344,7 +345,7 @@ class GeneralSettingsPanelBase ( wx.Panel ):
         self.blacklistVirtualCheckbox.SetValue(True)
         blacklistSizer.Add( self.blacklistVirtualCheckbox, 0, wx.ALL, 5 )
 
-        self.blacklistEmptyValCheckbox = wx.CheckBox( blacklistSizer.GetStaticBox(), wx.ID_ANY, u"将无名称的元件加入黑名单", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.blacklistEmptyValCheckbox = wx.CheckBox( blacklistSizer.GetStaticBox(), wx.ID_ANY, u"将无内容的元件加入黑名单", wx.DefaultPosition, wx.DefaultSize, 0 )
         blacklistSizer.Add( self.blacklistEmptyValCheckbox, 0, wx.ALL, 5 )
 
 
@@ -369,7 +370,7 @@ class GeneralSettingsPanelBase ( wx.Panel ):
         pass
 
 
-    # Virtual event handlers, overide them in your derived class
+    # Virtual event handlers, override them in your derived class
     def OnSize( self, event ):
         event.Skip()
 
@@ -396,45 +397,66 @@ class GeneralSettingsPanelBase ( wx.Panel ):
 
 
 ###########################################################################
-## Class ExtraFieldsPanelBase
+## Class FieldsPanelBase
 ###########################################################################
 
-class ExtraFieldsPanelBase ( wx.Panel ):
+class FieldsPanelBase ( wx.Panel ):
 
     def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
         wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
 
         bSizer42 = wx.BoxSizer( wx.VERTICAL )
 
-        sbSizer7 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"网络列表或 XML 文件" ), wx.VERTICAL )
+        sbSizer7 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"额外数据文件" ), wx.VERTICAL )
 
-        self.extraDataFilePicker = wx.FilePickerCtrl( sbSizer7.GetStaticBox(), wx.ID_ANY, wx.EmptyString, u"选择一个文件", u"网络列表或 XML 文件 (*.net; *.xml)|*.net;*.xml", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE|wx.FLP_FILE_MUST_EXIST|wx.FLP_OPEN|wx.FLP_SMALL|wx.FLP_USE_TEXTCTRL|wx.BORDER_SIMPLE )
+        self.extraDataFilePicker = wx.FilePickerCtrl( sbSizer7.GetStaticBox(), wx.ID_ANY, wx.EmptyString, u"选择文件", u"网络列表或 XML 文件 (*.net; *.xml)|*.net;*.xml", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE|wx.FLP_FILE_MUST_EXIST|wx.FLP_OPEN|wx.FLP_SMALL|wx.FLP_USE_TEXTCTRL|wx.BORDER_SIMPLE )
         sbSizer7.Add( self.extraDataFilePicker, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 
 
         bSizer42.Add( sbSizer7, 0, wx.ALL|wx.EXPAND, 5 )
 
-        extraFieldsSizer = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"额外字段" ), wx.VERTICAL )
+        fieldsSizer = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"字段" ), wx.VERTICAL )
 
         bSizer4 = wx.BoxSizer( wx.HORIZONTAL )
 
-        bSizer6 = wx.BoxSizer( wx.VERTICAL )
+        self.fieldsGrid = wx.grid.Grid( fieldsSizer.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
 
-        extraFieldsListChoices = []
-        self.extraFieldsList = wx.CheckListBox( extraFieldsSizer.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, extraFieldsListChoices, 0|wx.BORDER_SIMPLE )
-        bSizer6.Add( self.extraFieldsList, 1, wx.ALL|wx.EXPAND, 5 )
+        # Grid
+        self.fieldsGrid.CreateGrid( 2, 3 )
+        self.fieldsGrid.EnableEditing( True )
+        self.fieldsGrid.EnableGridLines( True )
+        self.fieldsGrid.EnableDragGridSize( False )
+        self.fieldsGrid.SetMargins( 0, 0 )
 
+        # Columns
+        self.fieldsGrid.AutoSizeColumns()
+        self.fieldsGrid.EnableDragColMove( False )
+        self.fieldsGrid.EnableDragColSize( True )
+        self.fieldsGrid.SetColLabelValue( 0, u"Show" )
+        self.fieldsGrid.SetColLabelValue( 1, u"Group" )
+        self.fieldsGrid.SetColLabelValue( 2, u"Name" )
+        self.fieldsGrid.SetColLabelSize( 30 )
+        self.fieldsGrid.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
 
-        bSizer4.Add( bSizer6, 1, wx.EXPAND, 5 )
+        # Rows
+        self.fieldsGrid.EnableDragRowSize( False )
+        self.fieldsGrid.SetRowLabelSize( 0 )
+        self.fieldsGrid.SetRowLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
+
+        # Label Appearance
+
+        # Cell Defaults
+        self.fieldsGrid.SetDefaultCellAlignment( wx.ALIGN_CENTER, wx.ALIGN_TOP )
+        bSizer4.Add( self.fieldsGrid, 1, wx.ALL|wx.EXPAND, 5 )
 
         bSizer5 = wx.BoxSizer( wx.VERTICAL )
 
-        self.m_btnUp = wx.BitmapButton( extraFieldsSizer.GetStaticBox(), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|0 )
+        self.m_btnUp = wx.BitmapButton( fieldsSizer.GetStaticBox(), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|0 )
         self.m_btnUp.SetMinSize( wx.Size( 30,30 ) )
 
         bSizer5.Add( self.m_btnUp, 0, wx.ALL, 5 )
 
-        self.m_btnDown = wx.BitmapButton( extraFieldsSizer.GetStaticBox(), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|0 )
+        self.m_btnDown = wx.BitmapButton( fieldsSizer.GetStaticBox(), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|0 )
         self.m_btnDown.SetMinSize( wx.Size( 30,30 ) )
 
         bSizer5.Add( self.m_btnDown, 0, wx.ALL, 5 )
@@ -443,17 +465,17 @@ class ExtraFieldsPanelBase ( wx.Panel ):
         bSizer4.Add( bSizer5, 0, 0, 5 )
 
 
-        extraFieldsSizer.Add( bSizer4, 1, wx.EXPAND, 5 )
+        fieldsSizer.Add( bSizer4, 1, wx.EXPAND, 5 )
 
-        self.normalizeCaseCheckbox = wx.CheckBox( extraFieldsSizer.GetStaticBox(), wx.ID_ANY, u"规范化字段名", wx.DefaultPosition, wx.DefaultSize, 0 )
-        extraFieldsSizer.Add( self.normalizeCaseCheckbox, 0, wx.ALL|wx.EXPAND, 5 )
+        self.normalizeCaseCheckbox = wx.CheckBox( fieldsSizer.GetStaticBox(), wx.ID_ANY, u"规范化字段名大小写", wx.DefaultPosition, wx.DefaultSize, 0 )
+        fieldsSizer.Add( self.normalizeCaseCheckbox, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-        bSizer42.Add( extraFieldsSizer, 2, wx.ALL|wx.EXPAND, 5 )
+        bSizer42.Add( fieldsSizer, 2, wx.ALL|wx.EXPAND, 5 )
 
-        sbSizer32 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"电路板变体" ), wx.VERTICAL )
+        sbSizer32 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"电路板变量" ), wx.VERTICAL )
 
-        self.m_staticText5 = wx.StaticText( sbSizer32.GetStaticBox(), wx.ID_ANY, u"电路板变体字段名", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText5 = wx.StaticText( sbSizer32.GetStaticBox(), wx.ID_ANY, u"电路板变量字段名", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText5.Wrap( -1 )
 
         sbSizer32.Add( self.m_staticText5, 0, wx.ALL, 5 )
@@ -500,7 +522,7 @@ class ExtraFieldsPanelBase ( wx.Panel ):
 
         sbSizer8 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"DNP 字段名" ), wx.VERTICAL )
 
-        self.m_staticText4 = wx.StaticText( sbSizer8.GetStaticBox(), wx.ID_ANY, u"没有该字段的元件将被忽略", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText4 = wx.StaticText( sbSizer8.GetStaticBox(), wx.ID_ANY, u"此字段不为空的元件将被忽略", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText4.Wrap( -1 )
 
         sbSizer8.Add( self.m_staticText4, 0, wx.ALL, 5 )
@@ -519,9 +541,10 @@ class ExtraFieldsPanelBase ( wx.Panel ):
 
         # Connect Events
         self.Bind( wx.EVT_SIZE, self.OnSize )
-        self.extraDataFilePicker.Bind( wx.EVT_FILEPICKER_CHANGED, self.OnNetlistFileChanged )
-        self.m_btnUp.Bind( wx.EVT_BUTTON, self.OnExtraFieldsUp )
-        self.m_btnDown.Bind( wx.EVT_BUTTON, self.OnExtraFieldsDown )
+        self.extraDataFilePicker.Bind( wx.EVT_FILEPICKER_CHANGED, self.OnExtraDataFileChanged )
+        self.fieldsGrid.Bind( wx.grid.EVT_GRID_CELL_LEFT_CLICK, self.OnGridCellClicked )
+        self.m_btnUp.Bind( wx.EVT_BUTTON, self.OnFieldsUp )
+        self.m_btnDown.Bind( wx.EVT_BUTTON, self.OnFieldsDown )
         self.normalizeCaseCheckbox.Bind( wx.EVT_CHECKBOX, self.OnNetlistFileChanged )
         self.boardVariantFieldBox.Bind( wx.EVT_COMBOBOX, self.OnBoardVariantFieldChange )
 
@@ -529,19 +552,24 @@ class ExtraFieldsPanelBase ( wx.Panel ):
         pass
 
 
-    # Virtual event handlers, overide them in your derived class
+    # Virtual event handlers, override them in your derived class
     def OnSize( self, event ):
+        event.Skip()
+
+    def OnExtraDataFileChanged( self, event ):
+        event.Skip()
+
+    def OnGridCellClicked( self, event ):
+        event.Skip()
+
+    def OnFieldsUp( self, event ):
+        event.Skip()
+
+    def OnFieldsDown( self, event ):
         event.Skip()
 
     def OnNetlistFileChanged( self, event ):
         event.Skip()
-
-    def OnExtraFieldsUp( self, event ):
-        event.Skip()
-
-    def OnExtraFieldsDown( self, event ):
-        event.Skip()
-
 
     def OnBoardVariantFieldChange( self, event ):
         event.Skip()
