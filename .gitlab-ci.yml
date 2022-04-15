@@ -7,7 +7,12 @@ deploy:
     - windows10shell
   script:
     - cd "${CI_PROJECT_DIR}\";
-    - Remove-Item "E:\Pipeline\vercel\InteractiveHtmlBom\*.html";
+    - if (${IHB_JSON_NAME}) {
+        Remove-Item "E:\Pipeline\vercel\InteractiveHtmlBom\${IHB_JSON_NAME}.html";
+        ${IHB_JSON_NAME_ARRAY} = ${IHB_JSON_NAME};
+      } else {
+        Remove-Item "E:\Pipeline\vercel\InteractiveHtmlBom\*.html";
+      }
     - foreach (${projectName} in ${IHB_JSON_NAME_ARRAY}.Split(" ")) {
         Invoke-WebRequest
           -Uri "${IHB_JSON_URL_LEFT}${projectName}${IHB_JSON_URL_RIGHT}"
