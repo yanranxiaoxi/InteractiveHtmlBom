@@ -1,0 +1,22 @@
+before_script:
+  - chcp 65001
+
+deploy:
+  stage: deploy
+  tags:
+    - windows10shell
+  script:
+    - cd "${CI_PROJECT_DIR}\";
+    - Remove-Item "E:\Pipeline\vercel\InteractiveHtmlBom\*.html";
+    - foreach (${projectName} in ${IHB_JSON_NAME_ARRAY}.Split(" ")) {
+        Invoke-WebRequest
+          -Uri "${IHB_JSON_URL_LEFT}${projectName}${IHB_JSON_URL_RIGHT}"
+          -OutFile ".\cache\${projectName}.json";
+        PowerShell -Command "& {.\python\python.exe .\generate_interactive_bom.py .\cache\${projectName}.json --dark-mode --no-browser}";
+        Rename-Item ".\cache\bom\ibom.html" -NewName "${projectName}.html";
+        Move-Item ".\cache\bom\${projectName}.html" "E:\Pipeline\vercel\InteractiveHtmlBom\";
+        Remove-Item ".\cache\${projectName}.json";
+      }
+    - cd "E:\Pipeline\vercel\InteractiveHtmlBom\";
+    - Copy-Item ".\index.html.bak" ".\index.html";
+    - PowerShell -Command "& {vercel --token ${VERCEL_TOKEN} --prod}";
