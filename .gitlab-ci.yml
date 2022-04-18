@@ -1,12 +1,9 @@
-before_script:
-  - chcp 65001
-
 deploy:
   stage: deploy
   tags:
     - windows10shell
   script:
-    - cd "${CI_PROJECT_DIR}\";
+    - Set-Location "${CI_PROJECT_DIR}\";
     - if (${IHB_JSON_NAME}) {
         Remove-Item "E:\Pipeline\vercel\InteractiveHtmlBom\${IHB_JSON_NAME}.html";
         ${IHB_JSON_NAME_ARRAY} = ${IHB_JSON_NAME};
@@ -22,6 +19,6 @@ deploy:
         Move-Item ".\cache\bom\${projectName}.html" "E:\Pipeline\vercel\InteractiveHtmlBom\";
         Remove-Item ".\cache\${projectName}.json";
       }
-    - cd "E:\Pipeline\vercel\InteractiveHtmlBom\";
+    - Set-Location "E:\Pipeline\vercel\InteractiveHtmlBom\";
     - Copy-Item ".\index.html.bak" ".\index.html";
     - PowerShell -Command "& {vercel --token ${VERCEL_TOKEN} --prod}";
