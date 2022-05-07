@@ -10,5 +10,3 @@ demo
 /web/user*
 /cache/*
 !/cache/README.md
-/external/html/*
-!/external/html/index.html
