@@ -8,7 +8,14 @@
 
 ## 📦 使用
 
-1. [下载本项目文件](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom/-/archive/master/InteractiveHtmlBom-master.zip) 并解压
+1. 克隆本项目仓库到本地
+
+```shell
+git clone https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom.git
+```
+
+（不推荐）当然，你也可以直接 [下载本项目文件](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom/-/archive/master/InteractiveHtmlBom-master.zip) 并解压，将 `InteractiveHtmlBom-master` 重命名为 `InteractiveHtmlBom`，切记，使用此方式安装将无法自动检查版本更新
+
 2. 将你从 [立创EDA](https://lceda.cn/) 导出的 PCB 源文件（文件后缀名为 `.json`）拖动至 `Run.bat`
     - 当然，你也可以双击打开 `Run.bat` 后再将文件拖入窗口
 3. 图形化窗口将会出现，你可以便捷地设置各参数
