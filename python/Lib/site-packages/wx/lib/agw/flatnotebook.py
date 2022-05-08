@@ -2169,7 +2169,7 @@ class FNBRenderer(object):
             # Default style
             tabWidth += 2*shapePoints
 
-        hasImage = pc._ImageList != None and pc._pagesInfoVec[tabIdx].GetImageIndex() != -1
+        hasImage = pc._ImageList is not None and pc._pagesInfoVec[tabIdx].GetImageIndex() != -1
 
         # For VC71 style, we only add the icon size (16 pixels)
         if hasImage:
@@ -2197,15 +2197,11 @@ class FNBRenderer(object):
         dc = wx.MemoryDC()
         dc.SelectObject(wx.Bitmap(1,1))
 
-        # For GTK it seems that we must do this steps in order
-        # for the tabs will get the proper height on initialization
-        # on MSW, preforming these steps yields wierd results
         normalFont = wx.SystemSettings.GetFont(wx.SYS_DEFAULT_GUI_FONT)
         boldFont = normalFont
 
-        if "__WXGTK__" in wx.PlatformInfo:
-            boldFont.SetWeight(wx.FONTWEIGHT_BOLD)
-            dc.SetFont(boldFont)
+        boldFont.SetWeight(wx.FONTWEIGHT_BOLD)
+        dc.SetFont(boldFont)
 
         height = dc.GetCharHeight()
 
@@ -3661,7 +3657,7 @@ class FNBRendererRibbonTabs(FNBRenderer):
             # Default style
             tabWidth += 2*shapePoints
 
-        hasImage = pc._ImageList != None and pc._pagesInfoVec[tabIdx].GetImageIndex() != -1
+        hasImage = pc._ImageList is not None and pc._pagesInfoVec[tabIdx].GetImageIndex() != -1
 
         # For VC71 style, we only add the icon size (16 pixels)
         if hasImage:
@@ -5635,7 +5631,7 @@ class PageContainer(wx.Panel):
             #! fix for tabfocus
             da_page = self._pParent.GetPage(page)
 
-            if da_page != None:
+            if da_page is not None:
                 da_page.SetFocus()
 
         if not self.IsTabVisible(page):

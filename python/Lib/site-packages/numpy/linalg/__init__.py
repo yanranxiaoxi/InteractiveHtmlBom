@@ -69,10 +69,11 @@ Exceptions
    LinAlgError
 
 """
-from __future__ import division, absolute_import, print_function
-
 # To get sub-modules
+from . import linalg
 from .linalg import *
+
+__all__ = linalg.__all__.copy()
 
 from numpy._pytesttester import PytestTester
 test = PytestTester(__name__)

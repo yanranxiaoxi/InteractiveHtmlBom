@@ -1,8 +1,7 @@
-from __future__ import division, absolute_import, print_function
-
 import sys
 import pytest
 import weakref
+from pathlib import Path
 
 import numpy as np
 from numpy.ctypeslib import ndpointer, load_library, as_array
@@ -37,15 +36,17 @@ else:
                     reason="ctypes not available in this python")
 @pytest.mark.skipif(sys.platform == 'cygwin',
                     reason="Known to fail on cygwin")
-class TestLoadLibrary(object):
+class TestLoadLibrary:
     def test_basic(self):
-        try:
-            # Should succeed
-            load_library('_multiarray_umath', np.core._multiarray_umath.__file__)
-        except ImportError as e:
-            msg = ("ctypes is not available on this python: skipping the test"
-                   " (import error was: %s)" % str(e))
-            print(msg)
+        loader_path = np.core._multiarray_umath.__file__
+
+        out1 = load_library('_multiarray_umath', loader_path)
+        out2 = load_library(Path('_multiarray_umath'), loader_path)
+        out3 = load_library('_multiarray_umath', Path(loader_path))
+        out4 = load_library(b'_multiarray_umath', loader_path)
+
+        assert isinstance(out1, ctypes.CDLL)
+        assert out1 is out2 is out3 is out4
 
     def test_basic2(self):
         # Regression for #801: load_library with a full library name
@@ -63,7 +64,7 @@ class TestLoadLibrary(object):
             print(msg)
 
 
-class TestNdpointer(object):
+class TestNdpointer:
     def test_dtype(self):
         dt = np.intc
         p = ndpointer(dtype=dt)
@@ -130,7 +131,7 @@ class TestNdpointer(object):
 
 @pytest.mark.skipif(ctypes is None,
                     reason="ctypes not available on this python installation")
-class TestNdpointerCFunc(object):
+class TestNdpointerCFunc:
     def test_arguments(self):
         """ Test that arguments are coerced from arrays """
         c_forward_pointer.restype = ctypes.c_void_p
@@ -186,7 +187,7 @@ class TestNdpointerCFunc(object):
 
 @pytest.mark.skipif(ctypes is None,
                     reason="ctypes not available on this python installation")
-class TestAsArray(object):
+class TestAsArray:
     def test_array(self):
         from ctypes import c_int
 
@@ -277,7 +278,7 @@ class TestAsArray(object):
 
 @pytest.mark.skipif(ctypes is None,
                     reason="ctypes not available on this python installation")
-class TestAsCtypesType(object):
+class TestAsCtypesType:
     """ Test conversion from dtypes to ctypes types """
     def test_scalar(self):
         dt = np.dtype('<u2')
