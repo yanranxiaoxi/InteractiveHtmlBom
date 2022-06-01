@@ -25,3 +25,5 @@ deploy:
     - Set-Location "E:\Pipeline\vercel\InteractiveHtmlBom\";
     - Copy-Item ".\index.html.bak" ".\index.html";
     - PowerShell -Command "& {vercel --token ${VERCEL_TOKEN} --prod}";
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
