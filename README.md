@@ -2,7 +2,7 @@
 
 ⭐ 简体中文版 Interactive HTML BOM，内置可嵌入式 Python 运行环境 ⭐
 
-[![pipeline status](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom/badges/master/pipeline.svg)](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom/-/commits/master) [![Latest Release](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom/-/badges/release.svg)](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom/-/releases) [![vercel](https://vercelbadge.soraharu.com/?app=interactivehtmlbom)](https://interactivehtmlbom.soraharu.com/)
+[![pipeline status](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom/badges/master/pipeline.svg)](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom/-/commits/master) [![Latest Release](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom/-/badges/release.svg)](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom/-/releases) [![vercel](https://vercelbadge.soraharu.com/?app=interactivehtmlbom)](https://interactivehtmlbom.soraharu.com/) [![OSCS Status](https://www.oscs1024.com/platform/badge/yanranxiaoxi/InteractiveHtmlBom.svg?size=small)](https://www.oscs1024.com/project/yanranxiaoxi/InteractiveHtmlBom?ref=badge_small)
 
 🔗 [GitLab (Homepage)](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom) | 🔗 [GitHub](https://github.com/yanranxiaoxi/InteractiveHtmlBom)
 
