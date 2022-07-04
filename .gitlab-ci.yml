@@ -4,14 +4,14 @@ stages:
 deploy:
   stage: deploy
   tags:
-    - windows10shell
+    - windowsserver2022powershell
   script:
     - Set-Location "${CI_PROJECT_DIR}\";
     - if (${IHB_JSON_NAME}) {
-        Remove-Item "E:\Pipeline\vercel\InteractiveHtmlBom\${IHB_JSON_NAME}.html";
+        Remove-Item "D:\pipeline\vercel\InteractiveHtmlBom\${IHB_JSON_NAME}.html";
         ${IHB_JSON_NAME_ARRAY} = ${IHB_JSON_NAME};
       } else {
-        Remove-Item "E:\Pipeline\vercel\InteractiveHtmlBom\*.html";
+        Remove-Item "D:\pipeline\vercel\InteractiveHtmlBom\*.html";
       }
     - foreach (${projectName} in ${IHB_JSON_NAME_ARRAY}.Split(" ")) {
         Invoke-WebRequest
@@ -19,10 +19,10 @@ deploy:
           -OutFile ".\cache\${projectName}.json";
         PowerShell -Command "& {.\python\python.exe .\generate_interactive_bom.py .\cache\${projectName}.json --dark-mode --no-browser}";
         Rename-Item ".\cache\bom\ibom.html" -NewName "${projectName}.html";
-        Move-Item ".\cache\bom\${projectName}.html" "E:\Pipeline\vercel\InteractiveHtmlBom\";
+        Move-Item ".\cache\bom\${projectName}.html" "D:\pipeline\vercel\InteractiveHtmlBom\";
         Remove-Item ".\cache\${projectName}.json";
       }
-    - Set-Location "E:\Pipeline\vercel\InteractiveHtmlBom\";
+    - Set-Location "D:\pipeline\vercel\InteractiveHtmlBom\";
     - Copy-Item ".\index.html.bak" ".\index.html";
     - PowerShell -Command "& {vercel --token ${VERCEL_TOKEN} --prod}";
   rules:
