@@ -1,12 +1,21 @@
 stages:
   - deploy
+  - package
+  - release
+
+#########################
+#        Deploy         #
+#########################
 
 deploy:
   stage: deploy
   tags:
     - windowsserver2022powershell
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   script:
-    - Set-Location "${CI_PROJECT_DIR}\";
+    - Copy-Item "D:\wwwroot\downloadserver.soraharu.com\InteractiveHtmlBom\Python\python-3.9.12-embed-amd64.zip" ".\python.zip";
+    - PowerShell -Command "& {7z x .\python.zip -aoa}";
     - if (${IHB_JSON_NAME}) {
         Remove-Item "D:\pipeline\vercel\InteractiveHtmlBom\${IHB_JSON_NAME}.html";
         ${IHB_JSON_NAME_ARRAY} = ${IHB_JSON_NAME};
@@ -25,5 +34,47 @@ deploy:
     - Set-Location "D:\pipeline\vercel\InteractiveHtmlBom\";
     - Copy-Item ".\index.html.bak" ".\index.html";
     - PowerShell -Command "& {vercel --token ${VERCEL_TOKEN} --prod}";
+
+#########################
+#        Package        #
+#########################
+
+package:
+  stage: package
+  tags:
+    - windowsserver2022powershell
+  variables:
+    GIT_DEPTH: "1"
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_TAG && $IHB_JSON_NAME == null
+  script:
+    - Copy-Item "D:\wwwroot\downloadserver.soraharu.com\InteractiveHtmlBom\Python\python-3.9.12-embed-amd64.zip" ".\python.zip";
+    - PowerShell -Command "& {7z x .\python.zip -aoa}";
+    - Remove-Item ".\python.zip";
+    - PowerShell -Command "& {7z a .\InteractiveHtmlBom-python-amd64.zip .\*}";
+    - ${downloadServerRootDir} = "D:\wwwroot\downloadserver.soraharu.com\InteractiveHtmlBom\${CI_COMMIT_TAG}\";
+    - if (Test-Path -Path "${downloadServerRootDir}") {
+        Remove-Item "${downloadServerRootDir}*" -Recurse;
+      } else {
+        New-Item -Path "${downloadServerRootDir}" -ItemType Directory;
+      }
+    - Move-Item ".\InteractiveHtmlBom-python-amd64.zip" "${downloadServerRootDir}";
+
+#########################
+#        Release        #
+#########################
+
+release:
+  stage: release
+  tags:
+    - linuxdocker
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  variables:
+    GIT_STRATEGY: none
+  rules:
+    - if: $CI_COMMIT_TAG
+  dependencies: []
+  script:
+    - |
+      release-cli create --name "Release $CI_COMMIT_TAG" --tag-name $CI_COMMIT_TAG \
+        --assets-link "{\"name\":\"InteractiveHtmlBom-python-amd64.zip\",\"url\":\"https://downloadserver.soraharu.com:7000/InteractiveHtmlBom/$CI_COMMIT_TAG/InteractiveHtmlBom-python-amd64.zip\",\"link_type\":\"package\"}"
