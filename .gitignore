@@ -10,3 +10,4 @@ demo
 /web/user*
 /cache/*
 !/cache/.gitkeep
+/python/
