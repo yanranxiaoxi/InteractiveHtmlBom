@@ -118,7 +118,7 @@ function saveBomTable(output) {
     var textArea = document.createElement("textarea");
     textArea.classList.add('clipboard-temp');
     textArea.value = text;
-  
+
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();

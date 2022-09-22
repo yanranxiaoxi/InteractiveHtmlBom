@@ -15,14 +15,15 @@ in different formats e.g.
 import re
 import locale
 
-current_locale = locale.setlocale(locale.LC_NUMERIC)
+# current_locale = locale.setlocale(locale.LC_NUMERIC)
 try:
     locale.setlocale(locale.LC_NUMERIC, '')
 except Exception:
     # sometimes setlocale with empty string doesn't work on OSX
     pass
 decimal_separator = locale.localeconv()['decimal_point']
-locale.setlocale(locale.LC_NUMERIC, current_locale)
+# 中文 Python 环境下报错
+# locale.setlocale(locale.LC_NUMERIC, current_locale)
 
 PREFIX_MICRO = [u"μ", u"µ", "u", "micro"]  # first is \u03BC second is \u00B5
 PREFIX_MILLI = ["milli", "m"]

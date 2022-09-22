@@ -3,7 +3,7 @@ import os
 import subprocess
 
 
-LAST_TAG = 'v1.0.2'
+LAST_TAG = 'v1.1.0'
 
 
 def _get_git_version():
@@ -16,10 +16,12 @@ def _get_git_version():
             return git_version.decode('utf-8').rstrip()
         else:
             return git_version.rstrip()
-    except subprocess.CalledProcessError as e:
-        print('Git 版本检查失败：' + str(e))
-    except Exception as e:
-        print('无法启动 Git 进程：' + str(e))
+    except subprocess.CalledProcessError:
+        # print('Git 版本检查失败：' + str(e))
+        pass
+    except Exception:
+        # print('无法启动 Git 进程：' + str(e))
+        pass
     return None
 
 

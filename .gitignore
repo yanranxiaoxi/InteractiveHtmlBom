@@ -9,4 +9,4 @@ demo
 *config.ini
 /web/user*
 /cache/*
-!/cache/README.md
+!/cache/.gitkeep

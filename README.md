@@ -10,16 +10,17 @@
 
 1. 克隆本项目仓库到本地
 
-```shell
-git clone https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom.git
-```
+	```shell
+	git clone --depth=1 https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom.git
+	```
 
-（不推荐）当然，你也可以直接 [下载本项目文件](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom/-/archive/master/InteractiveHtmlBom-master.zip) 并解压，将 `InteractiveHtmlBom-master` 重命名为 `InteractiveHtmlBom`，切记，使用此方式安装将无法自动检查版本更新
+	- 当然，你也可以直接下载本项目的发布版本 [GitLab-CE](https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom/-/releases) | [GitHub](https://github.com/yanranxiaoxi/InteractiveHtmlBom/releases)
 
-2. 将你从 [立创EDA](https://lceda.cn/) 导出的 PCB 源文件（文件后缀名为 `.json`）拖动至 `Run.bat`
-    - 当然，你也可以双击打开 `Run.bat` 后再将文件拖入窗口
-3. 图形化窗口将会出现，你可以便捷地设置各参数
-4. 享受你的一天~
+2. 如是使用 Git 克隆项目，请 [下载打包的 Python 运行环境](https://downloadserver.soraharu.com:7000/?InteractiveHtmlBom/Python) 并解压到项目根目录
+3. 将你从 [嘉立创EDA](https://lceda.cn/) 导出的 PCB 源文件（文件后缀名为 `.json`）拖动至 `Run.bat`
+	- 或者，你也可以双击打开 `Run.bat` 后再将文件拖入窗口
+4. 图形化配置界面将会出现，你可以便捷地设置各参数
+5. 享受你的一天~
 
 ## 📜 开源许可
 
@@ -27,4 +28,4 @@ git clone https://gitlab.soraharu.com/XiaoXi/InteractiveHtmlBom.git
 
 ## 💕 感谢
 
-本项目功能部分 99% 基于 [openscopeproject/InteractiveHtmlBom](https://github.com/openscopeproject/InteractiveHtmlBom)
+本项目功能代码 99% 基于 [openscopeproject/InteractiveHtmlBom](https://github.com/openscopeproject/InteractiveHtmlBom)
